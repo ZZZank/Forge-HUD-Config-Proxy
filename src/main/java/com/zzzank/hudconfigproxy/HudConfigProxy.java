@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public final class HudConfigProxy {
     public static final String MOD_ID = "hudconfigproxy";
     public static final String MOD_NAME = "HUD Config Proxy";
-    public static final String VERSION = "1.0.0";
+    public static final String VERSION = "1.1.0";
 
     // public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
