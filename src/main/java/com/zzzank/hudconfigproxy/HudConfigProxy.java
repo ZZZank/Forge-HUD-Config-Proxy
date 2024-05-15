@@ -4,6 +4,7 @@ import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,13 +26,26 @@ public final class HudConfigProxy {
     public HudConfigProxy() {
         MinecraftForge.EVENT_BUS.register(this);
     }
-    
+
+    @SubscribeEvent
+    public void preApply(WorldEvent.Load event) {
+        if (!event.getWorld().isRemote) {
+            //remote -> client
+            return;
+        }
+        applyOptions();
+    }
+
     @SubscribeEvent
     public void syncWithProxy(OnConfigChangedEvent event) {
         if (!event.getModID().equals(HudConfigProxy.MOD_ID)) {
             return;
         }
         ConfigManager.sync(MOD_ID, Config.Type.INSTANCE);
+        applyOptions();
+    }
+
+    public static void applyOptions() {
         GuiIngameForge.renderVignette    = ConfigProxy.renderVignette   ;
         GuiIngameForge.renderHelmet      = ConfigProxy.renderHelmet     ;
         GuiIngameForge.renderPortal      = ConfigProxy.renderPortal     ;
