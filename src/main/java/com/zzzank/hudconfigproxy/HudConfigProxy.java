@@ -7,8 +7,14 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * Client side only, because GuiIngame is
+ */
 @Mod(modid = HudConfigProxy.MOD_ID, name = HudConfigProxy.MOD_NAME, version = HudConfigProxy.VERSION)
+@SideOnly(value = Side.CLIENT)
 public final class HudConfigProxy {
     public static final String MOD_ID = "hudconfigproxy";
     public static final String MOD_NAME = "HUD Config Proxy";
